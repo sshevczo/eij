@@ -1,0 +1,99 @@
+services:
+  web:
+    build: ./
+    container_name: web
+    hostname: web
+    restart: always
+    command: bash ./entrypoint.sh
+    volumes:
+      - ./:/usr/src/django_back
+      - ./static:/usr/src/django_back/static
+      - ./media:/usr/src/django_back/media
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    networks:
+      - mynetwork
+    env_file:
+      - .env
+
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./static:/static
+      - ./media:/media
+      - ./nginx/cert:/etc/letsencrypt/
+    depends_on:
+      - web
+    networks:
+      - mynetwork
+
+  redis:
+    image: redis:alpine
+    restart: always
+    container_name: redis
+    hostname: redis
+    networks:
+      - mynetwork
+
+  celery:
+    restart: always
+    hostname: celery_worker
+    container_name: celery_worker
+    build: ./
+    command: celery -A config worker -l INFO
+    volumes:
+      - ./:/usr/src/django_back
+    environment:
+      - DEBUG=1
+    depends_on:
+      - redis
+    networks:
+      - mynetwork
+    env_file:
+      - .env
+
+  celery-beat:
+    restart: always
+    build: ./
+    hostname: celery_beat
+    container_name: celery_beat
+    command: celery -A config beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    volumes:
+      - ./:/usr/src/django_back
+    environment:
+      - DEBUG=1
+    depends_on:
+      - celery
+    networks:
+      - mynetwork
+    env_file:
+      - .env
+
+  flower:
+    image: "mher/flower"
+    restart: always
+    container_name: flower
+    command: celery flower --basic_auth=${FLOWER_LOGIN}:${FLOWER_PWD} --url_prefix=/flower
+    environment:
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+    depends_on:
+      - celery
+    ports:
+      - "5555:5555"
+    networks:
+      - mynetwork
+    env_file:
+      - .env
+
+networks:
+  mynetwork:
+    driver: bridge
+

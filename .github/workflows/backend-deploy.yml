@@ -1,0 +1,46 @@
+name: Back Deploy
+
+on:
+  push:
+    branches: 
+      - main 
+      - dev
+
+jobs:
+  deploy:
+    name: Backend Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run deploy on remote
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ vars.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: '${{ secrets.KEY }}'
+          port: "22"
+          command_timeout: "30m"
+          script: |
+            export FLOWER_LOGIN='${{ secrets.FLOWER_LOGIN }}'
+            export FLOWER_PWD='${{ secrets.FLOWER_PWD }}'
+            cd project
+            git pull git@github.com:UPCoD-UNKD/eij-backend.git
+            cd backend
+            echo "FLOWER_LOGIN=$FLOWER_LOGIN" > .env
+            echo "FLOWER_PWD=$FLOWER_PWD" >> .env            
+            sudo docker-compose down
+            sudo docker-compose build \
+            --build-arg POSTGRES_ENGINE='${{ vars.POSTGRES_ENGINE }}' \
+            --build-arg POSTGRES_DB='${{ vars.POSTGRES_DB }}' \
+            --build-arg POSTGRES_USER='${{ secrets.POSTGRES_USER }}' \
+            --build-arg POSTGRES_PASSWORD='${{ secrets.POSTGRES_PASSWORD }}' \
+            --build-arg POSTGRES_HOST='${{ secrets.POSTGRES_HOST }}' \
+            --build-arg POSTGRES_PORT='${{ vars.POSTGRES_PORT }}' \
+            --build-arg SECRET_KEY='${{ secrets.SECRET_KEY }}' \
+            --build-arg ALLOWED_HOSTS='${{ vars.ALLOWED_HOSTS }}' \
+            --build-arg DEBUG='${{ vars.DEBUG }}' \
+            --build-arg HELICONE_API_KEY='${{ secrets.HELICONE_API_KEY }}' \
+            --build-arg MAIN_MCC_ID='${{ secrets.MAIN_MCC_ID }}' \
+            --build-arg OPENAI_KEY='${{ secrets.OPENAI_KEY }}'
+            sudo docker-compose up -d
+            docker builder prune -f

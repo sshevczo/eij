@@ -1,0 +1,134 @@
+{
+    "Ukraine": [
+        "Ukrainian"
+    ],
+    "United Kingdom": [
+        "English"
+    ],
+    "France": [
+        "French"
+    ],
+    "Italy": [
+        "Italian"
+    ],
+    "Albania": [
+        "Albanian"
+    ],
+    "Andorra": [
+        "Catalan"
+    ],
+    "Armenia": [
+        "Armenian"
+    ],
+    "Austria": [
+        "German"
+    ],
+    "Azerbaijan": [
+        "Azerbaijani"
+    ],
+    "Belgium": [
+        "Dutch",
+        "French",
+        "German"
+    ],
+    "Bosnia and Herzegovina": [
+        "Bosnian",
+        "Croatian",
+        "Serbian"
+    ],
+    "Bulgaria": [
+        "Bulgarian"
+    ],
+    "Czech Republic": [
+        "Czech"
+    ],
+    "Denmark": [
+        "Danish"
+    ],
+    "Estonia": [
+        "Estonian"
+    ],
+    "Finland": [
+        "Finnish",
+        "Swedish"
+    ],
+    "Georgia": [
+        "Georgian"
+    ],
+    "Germany": [
+        "German"
+    ],
+    "Greece": [
+        "Greek"
+    ],
+    "Hungary": [
+        "Hungarian"
+    ],
+    "Iceland": [
+        "Icelandic"
+    ],
+    "Ireland": [
+        "English",
+        "Irish"
+    ],
+    "Latvia": [
+        "Latvian"
+    ],
+    "Liechtenstein": [
+        "German"
+    ],
+    "Lithuania": [
+        "Lithuanian"
+    ],
+    "Luxembourg": [
+        "Luxembourgish",
+        "French",
+        "German"
+    ],
+    "Malta": [
+        "Maltese",
+        "English"
+    ],
+    "Moldova": [
+        "Moldovan (Romanian)"
+    ],
+    "Monaco": [
+        "French"
+    ],
+    "Montenegro": [
+        "Montenegrin"
+    ],
+    "Netherlands": [
+        "Dutch"
+    ],
+    "Norway": [
+        "Norwegian"
+    ],
+    "Romania": [
+        "Romanian"
+    ],
+    "San Marino": [
+        "Italian"
+    ],
+    "Serbia": [
+        "Serbian"
+    ],
+    "Slovenia": [
+        "Slovenian"
+    ],
+    "Spain": [
+        "Spanish"
+    ],
+    "Sweden": [
+        "Swedish"
+    ],
+    "Switzerland": [
+        "German",
+        "French",
+        "Italian",
+        "Romansh"
+    ],
+    "Turkey": [
+        "Turkish"
+    ]
+}
