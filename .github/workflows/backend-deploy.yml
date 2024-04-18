@@ -23,7 +23,6 @@ jobs:
           script: |
             export FLOWER_LOGIN='${{ secrets.FLOWER_LOGIN }}'
             export FLOWER_PWD='${{ secrets.FLOWER_PWD }}'
-            cd project
             git pull git@github.com:UPCoD-UNKD/eij-backend.git
             cd backend
             echo "FLOWER_LOGIN=$FLOWER_LOGIN" > .env
