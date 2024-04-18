@@ -11,16 +11,10 @@ jobs:
     name: Backend Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Run deploy on remote
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ vars.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: '${{ secrets.KEY }}'
-          port: "22"
-          command_timeout: "30m"
-          script: |
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Run deploy localy
+        run: |
             export FLOWER_LOGIN='${{ secrets.FLOWER_LOGIN }}'
             export FLOWER_PWD='${{ secrets.FLOWER_PWD }}'
             git pull git@github.com:UPCoD-UNKD/eij-backend.git
