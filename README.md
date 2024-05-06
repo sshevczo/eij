@@ -14,7 +14,4 @@ Improve version of buxonline
 - [x] Improve logging
 <<<<<<< HEAD
 - [x] add DB
-- [x] +
-=======
->>>>>>> 1f2f74d209e1005c2a0aa823b535a04d9645d266
 
